@@ -7,24 +7,6 @@
 #include <boost/foreach.hpp>
 
 
-class Result {
-
-    public:
-
-        bool is_cycle;
-
-        int num_components;
-
-        void set_is_cycle(bool is_cycle) {
-            this -> is_cycle =  is_cycle;
-        }
-
-        void set_num_components(int num_components) {
-            this -> num_components = num_components;
-        }
-
-};
-
 class Edge {
 
     public:
@@ -50,35 +32,13 @@ class Edge {
 };
 
 
-
-class Graph {
-    // V-> Number of vertices, E-> Number of edges
-    public:
-        int V;
-        int E;
-        std::vector<Edge> edges;
-        void set_V(int V) {
-            this -> V = V;
-        }
-
-        void set_E(int E) {
-            this -> E = E;
-        }
-
-        void set_edges(std::vector<Edge> edges) {
-            for (int i = 0; i < edges.size(); i++) {
-                this -> edges.push_back(edges[i]);
-            }
-        }
-
-};
-
 int find(std::vector<int> parent, int i) {
     if (parent[i - 1] == -1) {
         return i;
     }
     return find(parent, parent[i-1]);
 }
+
 
 bool Union(std::vector<int>& parent, int x, int y) {
     int xset = find(parent, x);
@@ -104,8 +64,8 @@ void sort_by_cost(std::vector<std::vector<int>>& vec){
                 }
     );
 
-    //return vec;
 }
+
 
 void sort_edges_by_cost(std::vector<Edge>& edges){
 
@@ -120,8 +80,8 @@ void sort_edges_by_cost(std::vector<Edge>& edges){
                 }
     );
 
-    //return vec;
 }
+
 
 BOOST_PYTHON_MODULE(unionfind)
 {
@@ -137,10 +97,6 @@ BOOST_PYTHON_MODULE(unionfind)
     class_<std::vector<std::vector<int>> >("XVecVec")
     .def(vector_indexing_suite<std::vector<std::vector<int>> >());
 
-    class_<Result>("Result")
-	    .def_readonly("is_cycle", &Result::is_cycle)
-	    .def_readonly("num_components", &Result::num_components);
-
 
     class_<Edge>("Edge")
         .def("set_src", &Edge::set_src)
@@ -150,10 +106,6 @@ BOOST_PYTHON_MODULE(unionfind)
 	    .def_readonly("src", &Edge::src)
 	    .def_readonly("dest", &Edge::dest);
 
-    class_<Graph>("Graph")
-        .def("set_v", &Graph::set_V)
-	    .def("set_e", &Graph::set_E)
-	    .def("set_edges", &Graph::set_edges);
 
     class_<std::vector<Edge> >("EdgeVec")
         .def(vector_indexing_suite<std::vector<Edge> >());

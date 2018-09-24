@@ -24,18 +24,6 @@ def init():
     return edge_vec, parent, total_components, k
 
 
-def get_aux_graph(edge_set, vert_set, new_edge):
-    graph = unionfind.Graph()
-    graph.set_e(len(edge_set.union([new_edge])))
-    graph.set_v(len(vert_set.union([new_edge.src, new_edge.dest])))
-    edge_vec_aux = unionfind.EdgeVec()
-    for e in edge_set:
-        edge_vec_aux.append(e)
-    edge_vec_aux.append(new_edge)
-    graph.set_edges(edge_vec_aux)
-    return graph
-
-
 def form_clusters():
 
     edge_vec, parent, total_components, k = init()
