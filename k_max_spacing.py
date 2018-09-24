@@ -25,7 +25,6 @@ def init():
 
 
 def form_clusters():
-
     edge_vec, parent, total_components, k = init()
     for edge in edge_vec:
         if total_components > k:
