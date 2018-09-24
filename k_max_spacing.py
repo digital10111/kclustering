@@ -32,7 +32,7 @@ def form_clusters():
         if total_components == k:
             ret = unionfind.union(parent, edge.src, edge.dest)
             if ret:
-                print edge.cost
+                print(edge.cost)
                 break
         elif total_components > k:
             if ret:
